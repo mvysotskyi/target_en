@@ -27,7 +27,7 @@ def word_division(word):
     [('e', 1), ('g', 1), ('i', 1), ('l', 1), ('n', 1), ('o', 1), ('r', 1), ('v', 1)]
     """
     result = []
-    for ch in range(ord('a'), ord('z')):
+    for ch in range(ord('a'), ord('z') + 1):
         if chr(ch) in word:
             result.append((chr(ch), word.count(chr(ch))))
 
@@ -45,12 +45,14 @@ def word_contains(word1, word2):
     w1_div = word_division(word1.lower())
     w2_div = word_division(word2.lower())
 
-    try:
-        for key in w1_div:
-            if w1_div[key] > w2_div[key]:
-                return False
-    except KeyError:
-        return False
+    for j in w1_div:
+        res = False
+        for i in w2_div:
+            if i[0] == j[0] and j[1] <= i[1]:
+                res = True
+                break
+        if not res:
+            return False
 
     return True
 
