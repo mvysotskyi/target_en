@@ -1,3 +1,7 @@
+"""
+Target En Game
+"""
+
 from typing import List
 from random import randint
 from collections import Counter
@@ -11,7 +15,7 @@ def generate_grid() -> List[List[str]]:
     for __ in range(3):
         grid_row = []
         for _ in range(3):
-            grid_row.append(chr(ord("A") + randint(0, 26)))
+            grid_row.append(chr(ord("A") + randint(0, 25)))
         grid.append(grid_row)
 
     return grid
@@ -19,8 +23,15 @@ def generate_grid() -> List[List[str]]:
 def word_division(word):
     """
     Count letters in word
+    >>> word_division("lovering")
+    [('e', 1), ('g', 1), ('i', 1), ('l', 1), ('n', 1), ('o', 1), ('r', 1), ('v', 1)]
     """
-    return Counter(word)
+    result = []
+    for ch in range(ord('a'), ord('z')):
+        if chr(ch) in word:
+            result.append((chr(ch), word.count(chr(ch))))
+
+    return result
 
 def word_contains(word1, word2):
     """
@@ -124,13 +135,15 @@ def results():
     user_words = get_user_words()
     dict_words = get_words("en", letters)
 
-    result += ("Entered words: " + str(user_words) + '\n')
-    result += ("Words that was not presented in dictionary: " +
-    str(get_pure_user_words(user_words, letters, dict_words)))
+    result += ("Entered words: " + ', '.join(user_words) + '\n')
+    result += ("Valid words that was not presented in dictionary: " +
+    ', '.join(get_pure_user_words(user_words, letters, dict_words)))
 
     print(result)
     with open("results.txt", "w", encoding="utf-8") as file:
         file.write(result)
 
 if __name__ == "__main__":
-    results()
+    # results()
+    import doctest
+    print(doctest.testmod())
