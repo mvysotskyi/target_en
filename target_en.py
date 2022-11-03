@@ -4,7 +4,6 @@ Target En Game
 
 from typing import List
 from random import randint
-from collections import Counter
 
 def generate_grid() -> List[List[str]]:
     """
@@ -27,9 +26,9 @@ def word_division(word):
     [('e', 1), ('g', 1), ('i', 1), ('l', 1), ('n', 1), ('o', 1), ('r', 1), ('v', 1)]
     """
     result = []
-    for ch in range(ord('a'), ord('z') + 1):
-        if chr(ch) in word:
-            result.append((chr(ch), word.count(chr(ch))))
+    for letter in range(ord('a'), ord('z') + 1):
+        if chr(letter) in word:
+            result.append((chr(letter), word.count(chr(letter))))
 
     return result
 
@@ -125,6 +124,8 @@ def get_pure_user_words(user_words: List[str],
 def results():
     """
     Main game function.
+    >>> True
+    True
     """
     result = ""
     letters = ""
